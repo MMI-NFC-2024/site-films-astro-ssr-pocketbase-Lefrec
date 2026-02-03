@@ -10,7 +10,9 @@
     "type": "npx pocketbase-typegen --db ./pocketbase/pb_data/data.db --out ./src/utils/type.ts"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.17.1",
-    "pocketbase": "^0.26.8"
+    "pocketbase": "^0.26.8",
+    "tailwindcss": "^4.1.18"
   }
 }
