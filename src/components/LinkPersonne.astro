@@ -8,4 +8,4 @@ interface Props {
 const personne = Astro.props.personne;
 ---
 
-<a href={`/${personne.id}`}></a>
+<a href={`/personnes/${personne.id}`}>{personne.prenom} {personne.nom}</a>
