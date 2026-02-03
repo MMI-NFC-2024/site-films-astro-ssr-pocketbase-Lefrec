@@ -1,5 +1,6 @@
 ---
 import Layout from "../../../layout/Layout.astro";
+import { PersonneProfessionOptions } from "../../../utils/type";
 
 export const prerender = false;
 
@@ -68,27 +69,17 @@ if (Astro.request.method === "POST") {
       />
     </label>
 
-    <label class="block">
-      <span>Profession</span>
-      <div class="mt-1 space-y-2">
-        <label class="inline-flex items-center gap-2">
-          <input type="checkbox" name="profession" value="acteur" />
-          <span>Acteur</span>
-        </label>
-        <label class="inline-flex items-center gap-2">
-          <input type="checkbox" name="profession" value="scénariste" />
-          <span>Scénariste</span>
-        </label>
-        <label class="inline-flex items-center gap-2">
-          <input type="checkbox" name="profession" value="producteur" />
-          <span>Producteur</span>
-        </label>
-        <label class="inline-flex items-center gap-2">
-          <input type="checkbox" name="profession" value="réalisateur" />
-          <span>Réalisateur</span>
-        </label>
-      </div>
-    </label>
+    <span>Professions</span>
+    <div class="mt-1 space-y-2">
+      {
+        Object.entries(PersonneProfessionOptions).map(([key, value]) => (
+          <label class="inline-flex items-center gap-2">
+            <input type="checkbox" name="profession" value={value} />
+            <span>{key}</span>
+          </label>
+        ))
+      }
+    </div>
 
     <button type="submit">Soumettre</button>
   </form>
