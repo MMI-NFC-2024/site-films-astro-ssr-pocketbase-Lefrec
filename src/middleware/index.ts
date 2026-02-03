@@ -3,6 +3,7 @@ import pb from 'pocketbase';
 import { defineMiddleware } from 'astro/middleware';
 
 export const onRequest = defineMiddleware(async ({locals, request, isPrerendered}:any, next: ()=> any) => {
+    locals.pb = new pb("http://127.0.0.1:8090");
 
     if (!isPrerendered) {
         locals.pb.authStore.loadFromCookie(request.headers.get('cookie')||'');

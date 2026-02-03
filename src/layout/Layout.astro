@@ -13,6 +13,11 @@ const { title = "Films Astro" } = Astro.props as Props;
     <title>{title}</title>
   </head>
   <body>
+    <header>
+      <a href="/">Accueil</a>
+      <a href="/personnes">Personnes</a>
+      <a href="/films">Films</a>
+    </header>
     <main>
       <slot />
     </main>
