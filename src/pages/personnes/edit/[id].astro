@@ -1,0 +1,30 @@
+---
+import Layout from "../../../layout/Layout.astro";
+
+export const prerender = false;
+const { id } = Astro.params;
+
+const personne = await Astro.locals.pb.collection("personne").getOne(id);
+
+if (Astro.request.method === "POST") {
+    const data = await Astro.request.formData();
+
+    Astro.locals.pb.collection('personne').update(id, data);
+}
+---
+
+<Layout>
+  <h1>Modifier la page de {personne.prenom} {personne.nom}</h1>
+  <form method="POST">
+    <label class="block">
+      <span>Nom</span>
+      <input
+        name="nom"
+        type="text"
+        class="mt-1 block w-full"
+        placeholder={personne.nom}
+      />
+    </label>
+    <button type="submit">Soumettre</button>
+  </form>
+</Layout>

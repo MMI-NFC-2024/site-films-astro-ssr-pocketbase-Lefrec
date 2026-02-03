@@ -1,6 +1,9 @@
 ---
 import LinkPersonne from "../../components/LinkPersonne.astro";
 import Layout from "../../layout/Layout.astro";
+
+export const prerender = false;
+
 const personnes = await Astro.locals.pb.collection("personne").getFullList();
 ---
 
@@ -11,4 +14,6 @@ const personnes = await Astro.locals.pb.collection("personne").getFullList();
       personnes.map((personne) => (<li><LinkPersonne personne={personne}></li>))
     }
   </ul>
+
+  {Astro.locals.pb.authStore.isValid ? <a href="/personnes/add/">Ajouter une nouvelle personne</a> : ""}
 </Layout>

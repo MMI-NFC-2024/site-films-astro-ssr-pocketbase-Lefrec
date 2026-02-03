@@ -1,0 +1,28 @@
+---
+import Layout from "../../../layout/Layout.astro";
+
+if (Astro.request.method === "POST") {
+  const data = await Astro.request.formData();
+  data.append("user", Astro.locals.pb.authStore.record?.id);
+
+  console.log(data);
+
+  await Astro.locals.pb.collection("personne").create(data);
+}
+---
+
+<Layout>
+  <h1>Ajouter une personne</h1>
+  <form method="POST">
+    <label class="block">
+      <span>Nom</span>
+      <input
+        name="nom"
+        type="text"
+        class="mt-1 block w-full"
+        placeholder="Nom"
+      />
+    </label>
+    <button type="submit">Soumettre</button>
+  </form>
+</Layout>
