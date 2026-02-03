@@ -23,6 +23,69 @@ if (Astro.request.method === "POST") {
         placeholder="Nom"
       />
     </label>
+
+    <label class="block">
+      <span>Prénom</span>
+      <input
+        name="prenom"
+        type="text"
+        class="mt-1 block w-full"
+        placeholder="Prénom"
+      />
+    </label>
+
+    <label class="block">
+      <span>Date de naissance</span>
+      <input name="date_naissance" type="date" class="mt-1 block w-full" />
+    </label>
+
+    <label class="block">
+      <span>Date de décès</span>
+      <input name="date_deces" type="date" class="mt-1 block w-full" />
+    </label>
+
+    <label class="block">
+      <span>Nationalité</span>
+      <input
+        name="nationalite"
+        type="text"
+        class="mt-1 block w-full"
+        placeholder="Nationalité"
+      />
+    </label>
+
+    <label class="block">
+      <span>Lieu de naissance</span>
+      <input
+        name="lieu_naissance"
+        type="text"
+        class="mt-1 block w-full"
+        placeholder="Lieu de naissance"
+      />
+    </label>
+
+    <label class="block">
+      <span>Profession</span>
+      <div class="mt-1 space-y-2">
+        <label class="inline-flex items-center gap-2">
+          <input type="checkbox" name="profession" value="acteur" />
+          <span>Acteur</span>
+        </label>
+        <label class="inline-flex items-center gap-2">
+          <input type="checkbox" name="profession" value="scénariste" />
+          <span>Scénariste</span>
+        </label>
+        <label class="inline-flex items-center gap-2">
+          <input type="checkbox" name="profession" value="producteur" />
+          <span>Producteur</span>
+        </label>
+        <label class="inline-flex items-center gap-2">
+          <input type="checkbox" name="profession" value="réalisateur" />
+          <span>Réalisateur</span>
+        </label>
+      </div>
+    </label>
+
     <button type="submit">Soumettre</button>
   </form>
 </Layout>

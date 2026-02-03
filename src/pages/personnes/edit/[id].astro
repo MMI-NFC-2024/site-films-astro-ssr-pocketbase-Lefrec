@@ -6,10 +6,26 @@ const { id } = Astro.params;
 
 const personne = await Astro.locals.pb.collection("personne").getOne(id);
 
-if (Astro.request.method === "POST") {
-    const data = await Astro.request.formData();
+// Helper to format various stored date strings into YYYY-MM-DD for <input type="date"> values
+function toDateInputValue(val) {
+  if (!val) return "";
+  const d = new Date(val);
+  if (isNaN(d.getTime())) return "";
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+}
 
-    Astro.locals.pb.collection('personne').update(id, data);
+const dateNaissance = toDateInputValue(personne.date_naissance);
+const dateDeces = toDateInputValue(personne.date_deces);
+
+if (Astro.request.method === "POST") {
+  const data = await Astro.request.formData();
+
+  Astro.locals.pb.collection("personne").update(id, data);
+
+  return Astro.redirect(`/personnes/${id}`);
 }
 ---
 
@@ -22,9 +38,110 @@ if (Astro.request.method === "POST") {
         name="nom"
         type="text"
         class="mt-1 block w-full"
-        placeholder={personne.nom}
+        value={personne.nom}
       />
     </label>
+
+    <label class="block">
+      <span>Prénom</span>
+      <input
+        name="prenom"
+        type="text"
+        class="mt-1 block w-full"
+        value={personne.prenom}
+      />
+    </label>
+
+    <label class="block">
+      <span>Date de naissance</span>
+      <input
+        name="date_naissance"
+        type="date"
+        class="mt-1 block w-full"
+        value={dateNaissance}
+      />
+    </label>
+
+    <label class="block">
+      <span>Date de décès</span>
+      <input
+        name="date_deces"
+        type="date"
+        class="mt-1 block w-full"
+        value={dateDeces}
+      />
+    </label>
+
+    <label class="block">
+      <span>Nationalité</span>
+      <input
+        name="nationalite"
+        type="text"
+        class="mt-1 block w-full"
+        value={personne.nationalite || ""}
+      />
+    </label>
+
+    <label class="block">
+      <span>Lieu de naissance</span>
+      <input
+        name="lieu_naissance"
+        type="text"
+        class="mt-1 block w-full"
+        value={personne.lieu_naissance || ""}
+      />
+    </label>
+
+    <label class="block">
+      <span>Profession</span>
+      <div class="mt-1 space-y-2">
+        <label class="inline-flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="profession"
+            value="acteur"
+            checked={Array.isArray(personne.profession)
+              ? personne.profession.includes("acteur")
+              : personne.profession === "acteur"}
+          />
+          <span>Acteur</span>
+        </label>
+        <label class="inline-flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="profession"
+            value="scénariste"
+            checked={Array.isArray(personne.profession)
+              ? personne.profession.includes("scénariste")
+              : personne.profession === "scénariste"}
+          />
+          <span>Scénariste</span>
+        </label>
+        <label class="inline-flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="profession"
+            value="producteur"
+            checked={Array.isArray(personne.profession)
+              ? personne.profession.includes("producteur")
+              : personne.profession === "producteur"}
+          />
+          <span>Producteur</span>
+        </label>
+        <label class="inline-flex items-center gap-2">
+          <input
+            type="checkbox"
+            name="profession"
+            value="réalisateur"
+            checked={Array.isArray(personne.profession)
+              ? personne.profession.includes("réalisateur")
+              : personne.profession === "réalisateur"}
+          />
+          <span>Réalisateur</span>
+        </label>
+      </div>
+    </label>
+
     <button type="submit">Soumettre</button>
   </form>
 </Layout>
