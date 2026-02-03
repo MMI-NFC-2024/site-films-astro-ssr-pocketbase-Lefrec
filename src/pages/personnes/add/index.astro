@@ -1,13 +1,17 @@
 ---
 import Layout from "../../../layout/Layout.astro";
 
+export const prerender = false;
+
 if (Astro.request.method === "POST") {
   const data = await Astro.request.formData();
   data.append("user", Astro.locals.pb.authStore.record?.id);
 
   console.log(data);
 
-  await Astro.locals.pb.collection("personne").create(data);
+  const record = await Astro.locals.pb.collection("personne").create(data);
+
+  return Astro.redirect(`/personnes/${record.id}`);
 }
 ---
 
