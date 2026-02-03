@@ -1,0 +1,11 @@
+---
+import type { PersonneRecord } from "../utils/type";
+
+interface Props {
+  personne: PersonneRecord;
+}
+
+const personne = Astro.props.personne;
+---
+
+<a href={`/${personne.id}`}></a>
