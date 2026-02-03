@@ -1,4 +1,10 @@
 ---
+import { Debug } from "astro:components";
+
 export const prerender = false;
-const { id } = Astro.props;
+const { id } = Astro.params;
+
+const personne = await Astro.locals.pb.collection("personne").getOne(id);
 ---
+
+<h1>{personne.prenom} {personne.nom}</h1>
