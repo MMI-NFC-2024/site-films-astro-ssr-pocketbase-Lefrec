@@ -15,5 +15,9 @@
     "astro": "^5.17.1",
     "pocketbase": "^0.26.8",
     "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@types/slug": "^5.0.9",
+    "slug": "^11.0.1"
   }
 }
