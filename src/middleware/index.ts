@@ -3,9 +3,10 @@ import pb from 'pocketbase';
 import { defineMiddleware } from 'astro/middleware';
 
 export const onRequest = defineMiddleware(async ({locals, request, isPrerendered}:any, next: ()=> any) => {
-    locals.pb.authStore.loadFromCookie(request.headers.get('cookie')||'');
 
     if (!isPrerendered) {
+        locals.pb.authStore.loadFromCookie(request.headers.get('cookie')||'');
+        
         try {
             locals.pb.authStore.isValid && await locals.pb.collection('users').authRefresh();
         } catch (error) {
