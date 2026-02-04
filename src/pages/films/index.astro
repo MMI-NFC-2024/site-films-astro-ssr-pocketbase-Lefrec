@@ -1,0 +1,19 @@
+---
+import LinkFilm from "../../components/LinkFilm.astro";
+import Layout from "../../layout/Layout.astro";
+
+export const prerender = false;
+
+const films = await Astro.locals.pb.collection("film").getFullList();
+---
+
+<Layout title="Liste des films">
+  <h1>Liste des films</h1>
+  <ul>
+    {
+      films.map((film) => (<li><LinkFilm film={film}></li>))
+    }
+  </ul>
+
+  {Astro.locals.pb.authStore.isValid ? <a href="/films/add/">Ajouter un nouveau film</a> : ""}
+</Layout>

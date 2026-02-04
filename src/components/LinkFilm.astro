@@ -1,0 +1,11 @@
+---
+import type { FilmRecord } from "../utils/type";
+
+interface Props {
+  film: FilmRecord;
+}
+
+const film = Astro.props.film;
+---
+
+<a href={`/films/${film.id}`}>{film.titre}</a>

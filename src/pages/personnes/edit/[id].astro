@@ -93,17 +93,24 @@ if (Astro.request.method === "POST") {
       />
     </label>
 
-    <span>Professions</span>
-    <div class="mt-1 space-y-2">
-      {
-        Object.entries(PersonneProfessionOptions).map(([key, value]) => (
-          <label class="inline-flex items-center gap-2">
-            <input type="checkbox" name="profession" value={value} checked={personne.profession.includes(value)}/>
-            <span>{key}</span>
-          </label>
-        ))
-      }
-    </div>
+    <fieldset>
+      <legend>Professions</legend>
+      <div class="flex gap-4">
+        {
+          Object.entries(PersonneProfessionOptions).map(([key, value]) => (
+            <label class="inline-flex items-center gap-2">
+              <input
+                type="checkbox"
+                name="profession"
+                value={value}
+                checked={personne.profession.includes(value)}
+              />
+              <span>{key}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
 
     <button type="submit">Soumettre</button>
   </form>
