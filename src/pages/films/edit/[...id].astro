@@ -131,7 +131,7 @@ const personneList = await Astro.locals.pb.collection("personne").getFullList();
                 type="checkbox"
                 name="producteur"
                 value={id}
-                checked={id && film.producteur.includes(id)}
+                checked={id && film.producteur?.includes(id)}
               />
               <span>{prenom} {nom}</span>
             </label>
@@ -150,7 +150,7 @@ const personneList = await Astro.locals.pb.collection("personne").getFullList();
                 type="checkbox"
                 name="scenariste"
                 value={id}
-                checked={id && film.scenariste.includes(id)}
+                checked={id && film.scenariste?.includes(id)}
               />
               <span>{prenom} {nom}</span>
             </label>
