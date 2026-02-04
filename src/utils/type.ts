@@ -13,6 +13,7 @@ export enum Collections {
 	Superusers = "_superusers",
 	Film = "film",
 	Personne = "personne",
+	Role = "role",
 	Users = "users",
 }
 
@@ -143,6 +144,15 @@ export type PersonneRecord = {
 	user?: RecordIdString
 }
 
+export type RoleRecord = {
+	acteur?: RecordIdString
+	created: IsoAutoDateString
+	id: string
+	nom?: string
+	updated: IsoAutoDateString
+	user?: RecordIdString
+}
+
 export type UsersRecord = {
 	avatar?: FileNameString
 	created: IsoAutoDateString
@@ -164,6 +174,7 @@ export type OtpsResponse<Texpand = unknown> = Required<OtpsRecord> & BaseSystemF
 export type SuperusersResponse<Texpand = unknown> = Required<SuperusersRecord> & AuthSystemFields<Texpand>
 export type FilmResponse<Texpand = unknown> = Required<FilmRecord> & BaseSystemFields<Texpand>
 export type PersonneResponse<Texpand = unknown> = Required<PersonneRecord> & BaseSystemFields<Texpand>
+export type RoleResponse<Texpand = unknown> = Required<RoleRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
@@ -176,6 +187,7 @@ export type CollectionRecords = {
 	_superusers: SuperusersRecord
 	film: FilmRecord
 	personne: PersonneRecord
+	role: RoleRecord
 	users: UsersRecord
 }
 
@@ -187,6 +199,7 @@ export type CollectionResponses = {
 	_superusers: SuperusersResponse
 	film: FilmResponse
 	personne: PersonneResponse
+	role: RoleResponse
 	users: UsersResponse
 }
 
