@@ -114,9 +114,9 @@ export type FilmRecord = {
 	id: string
 	langue?: string
 	pays_realise?: string
-	producteur?: RecordIdString
+	producteur?: RecordIdString[]
 	realisateur?: RecordIdString
-	scenariste?: RecordIdString
+	scenariste?: RecordIdString[]
 	synopsis?: string
 	titre?: string
 	updated: IsoAutoDateString
