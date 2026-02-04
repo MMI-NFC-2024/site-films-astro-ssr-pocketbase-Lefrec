@@ -108,7 +108,7 @@ export enum FilmGenreOptions {
 }
 export type FilmRecord = {
 	created: IsoAutoDateString
-	date_sortie?: IsoDateString
+	date_sortie?: number
 	duree?: number
 	genre?: FilmGenreOptions[]
 	id: string
@@ -117,9 +117,10 @@ export type FilmRecord = {
 	producteur?: RecordIdString
 	realisateur?: RecordIdString
 	scenariste?: RecordIdString
-	synopsis?: HTMLString
+	synopsis?: string
 	titre?: string
 	updated: IsoAutoDateString
+	user?: RecordIdString
 }
 
 export enum PersonneProfessionOptions {

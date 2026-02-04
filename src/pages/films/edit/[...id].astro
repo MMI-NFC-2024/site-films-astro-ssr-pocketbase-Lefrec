@@ -1,0 +1,120 @@
+---
+import Layout from "../../../layout/Layout.astro";
+import { FilmGenreOptions, type FilmResponse } from "../../../utils/type";
+
+export const prerender = false;
+const { id } = Astro.params;
+
+let message = null;
+
+let film = {} as FilmResponse;
+
+if (id) {
+  film = await Astro.locals.pb.collection("film").getOne(id);
+}
+
+if (Astro.request.method === "POST") {
+  const data = await Astro.request.formData();
+
+  const filmCree = await (
+    id
+      ? Astro.locals.pb.collection("film").update(id, data)
+      : Astro.locals.pb.collection("film").create(data)
+  ).catch((err) => {
+    console.error("Erreur de sauvegarde de la personne : ", err);
+    message = err.message;
+    return null;
+  });
+
+  if (filmCree) {
+    return Astro.redirect(`/films/${filmCree.id}`);
+  }
+}
+---
+
+<Layout title={id ? "Modifer le film "+film.titre : "Ajouter un film"}>
+  {id ? <h1>Modifier la page de {film.titre}</h1> : <h1>Ajouter un film</h1>}
+  {message && <p class="text-red-500">{message}</p>}
+  <form method="POST">
+    <label class="block">
+      <span>Titre</span>
+      <input
+        name="titre"
+        type="text"
+        class="mt-1 block w-full"
+        value={id && film.titre}
+      />
+    </label>
+
+    <label class="block">
+      <span>Date de sortie</span>
+      <input
+        name="date_sortie"
+        type="number"
+        class="mt-1 block w-full"
+        value={id && film.date_sortie}
+      />
+    </label>
+
+    <label class="block">
+      <span>Synopsis</span>
+      <input
+        name="synopsis"
+        type="text"
+        class="mt-1 block w-full"
+        value={id && film.synopsis}
+      />
+    </label>
+
+    <label class="block">
+      <span>Langue</span>
+      <input
+        name="langue"
+        type="text"
+        class="mt-1 block w-full"
+        value={id && film.langue}
+      />
+    </label>
+
+    <label class="block">
+      <span>Durée</span>
+      <input
+        name="duree"
+        type="number"
+        class="mt-1 block w-full"
+        value={id && film.duree}
+      />
+    </label>
+
+    <label class="block">
+      <span>Pays de réalisation</span>
+      <input
+        name="pays_realise"
+        type="text"
+        class="mt-1 block w-full"
+        value={id && film.pays_realise}
+      />
+    </label>
+
+    <fieldset>
+      <legend>Genre</legend>
+      <div class="flex gap-4">
+        {
+          Object.entries(FilmGenreOptions).map(([key, value]) => (
+            <label class="inline-flex items-center gap-2">
+              <input
+                type="checkbox"
+                name="genre"
+                value={value}
+                checked={id && film.genre.includes(value)}
+              />
+              <span>{key}</span>
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <button type="submit">Soumettre</button>
+  </form>
+</Layout>

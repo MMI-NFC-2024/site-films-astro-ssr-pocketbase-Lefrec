@@ -15,5 +15,5 @@ const films = await Astro.locals.pb.collection("film").getFullList();
     }
   </ul>
 
-  {Astro.locals.pb.authStore.isValid ? <a href="/films/add/">Ajouter un nouveau film</a> : ""}
+  {Astro.locals.pb.authStore.isValid ? <a href="/films/edit/">Ajouter un nouveau film</a> : ""}
 </Layout>

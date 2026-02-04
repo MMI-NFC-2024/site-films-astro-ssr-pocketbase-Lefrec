@@ -1,0 +1,13 @@
+---
+import Layout from "../../layout/Layout.astro";
+
+export const prerender = false;
+const { id } = Astro.params;
+
+const film = await Astro.locals.pb.collection("film").getOne(id);
+---
+
+<Layout title={film.titre}>
+  <h1>{film.titre}</h1>
+  {Astro.locals.pb.authStore.record && Astro.locals.pb.authStore.record.id === film.user ? <a href={`/films/edit/${id}`}>Modifier ce film</a> : ""}
+</Layout>
