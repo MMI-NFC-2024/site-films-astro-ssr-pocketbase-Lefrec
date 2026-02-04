@@ -16,10 +16,11 @@ if (id) {
 if (Astro.request.method === "POST") {
   const data = await Astro.request.formData();
 
-  const filmCree = await (
-    id
-      ? Astro.locals.pb.collection("film").update(id, data)
-      : Astro.locals.pb.collection("film").create(data)
+  {!id && data.append("user", Astro.locals.pb.authStore.record?.id)}
+
+  const filmCree = await (id
+      ? (Astro.locals.pb.collection("film").update(id, data))
+      : (Astro.locals.pb.collection("film").create(data))
   ).catch((err) => {
     console.error("Erreur de sauvegarde de la personne : ", err);
     message = err.message;
@@ -32,10 +33,11 @@ if (Astro.request.method === "POST") {
 }
 ---
 
-<Layout title={id ? "Modifer le film "+film.titre : "Ajouter un film"}>
+<Layout title={id ? "Modifer le film " + film.titre : "Ajouter un film"}>
   {id ? <h1>Modifier la page de {film.titre}</h1> : <h1>Ajouter un film</h1>}
   {message && <p class="text-red-500">{message}</p>}
   <form method="POST">
+
     <label class="block">
       <span>Titre</span>
       <input
